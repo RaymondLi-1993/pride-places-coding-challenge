@@ -1,42 +1,47 @@
 import React, { useState, useEffect } from "react";
 
+
 //importing other components
 import Loading from "./Loading";
 import Card from "./Card";
 
+
 export default function Hero() {
-  const [data, setData] = useState(null);
+   const [posts, setPost] = useState([]);
 
 
-  //useEffect hook to fetch data from API
-  useEffect(() => {
-    try {
+   //useEffect runs on page mount fetching posts from jsonplaceholder/posts 
+   //returns a new object that fetches a specific user from the users endpoint
+   //maps over every single comment with the newly added user object into state
+
+   useEffect(() => {
       const fetchData = async () => {
-        let response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
-        let data = await response.json();
-        setData(data);
-      };
-      fetchData();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+        const fetchedData = await response.json();
+        const posts = await Promise.all(fetchedData.map(async (post) => {
+           return {"title":post.title, "body":post.body, "user": await fetchUser(post.userId)}  
+        }));
 
-  if(!data){
-      return (
-         <Loading /> 
-      );
-  }
+        setPost(posts);
+      }
+      
+      const fetchUser = async (id) => {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+        const fetchedData = await response.json();
+        const user = {"user":fetchedData.name, "catchphrase":fetchedData.company.catchPhrase}
+        return user;
+      }
+
+      fetchData();
+   },[]) 
+   
+  
 
   return (
     <div>
-      {data.map((elem, index) => {
-         return(
-           <Card key={index}/> 
-         ) 
-      })}
+        {posts ? posts.map((elem, index) => {
+           return <Card key={index}{...elem}/> 
+        }) : <Loading /> }
     </div>
   );
 }
