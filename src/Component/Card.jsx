@@ -52,6 +52,7 @@ export default function Cards({ title, ...rest }) {
           <div>
             <h1>{`USERNAME  ${user.user}`}</h1>
             <h1>{`CATCHPHRASE ${user.catchphrase}`}</h1>
+            <h1>{`TITLE ${title}`}</h1>
             <h1>{`BODY    ${body}`}</h1>
 
             <button
