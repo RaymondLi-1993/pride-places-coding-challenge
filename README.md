@@ -17,4 +17,4 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-
+Fetching/State Logic is held within the Hero component. Any updates will cause an automatic refresh.
