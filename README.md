@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+After Cloning down install all dependencies required before running the application.
+
+Used TAILWIND CSS for styling.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -11,5 +16,5 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The useEffect Hook is fetching from https://jsonplaceholder.typicode.com/posts endpoints.
+
 
